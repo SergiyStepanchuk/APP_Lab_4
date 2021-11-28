@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import testOnline.dto.UserDTO;
+import testOnline.entity.User;
+import testOnline.entity.enumeration.UserRole;
 import testOnline.mappers.UserToUserDTOMapper;
 import testOnline.repositories.UserRepository;
 
@@ -26,5 +28,9 @@ public class LoginController {
     public List<UserDTO> listAll() {
         return StreamSupport.stream(repo.findAll().spliterator(), false).map(userMapper::toDTO).collect(Collectors.toList());
     }
-
+    @GetMapping("/addingUser")
+    public UserDTO AddUser(){
+        var user = repo.save(new User("Pudge","qwerty123", UserRole.USER));
+        return userMapper.toDTO(user);
+    }
 }

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private String id;
+    private Long id;
 
     private String login;
     private String passwordHash;
@@ -48,7 +48,7 @@ public class User {
                 "role = " + role + ")";
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 }

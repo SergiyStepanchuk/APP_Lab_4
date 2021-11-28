@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserDTO {
     @NotBlank
-    private String id;
+    private Long id;
 
     @NotBlank
     private String login;
