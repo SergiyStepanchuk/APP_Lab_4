@@ -19,5 +19,4 @@ public class SessionOfTestDTO {
     private Date startDateTime;
     private Date endDateTime;
     private List<QuestionOfSessionDTO> questions;
-
 }

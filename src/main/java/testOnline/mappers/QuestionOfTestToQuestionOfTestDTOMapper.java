@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class QuestionOfTestToQuestionOfTestDTOMapper {
-@Autowired private OptionOfQuestionToOptionOfQuestionDTOMapper optionMapper;
+    @Autowired private OptionOfQuestionToOptionOfQuestionDTOMapper optionMapper;
+
     public QuestionOfTest toEntity(final QuestionOfTestDTO questionDTO) {
         final var question = new QuestionOfTest();
 
@@ -23,6 +24,7 @@ public class QuestionOfTestToQuestionOfTestDTOMapper {
 
         return question;
     }
+
     public  QuestionOfTestDTO toDTO(final QuestionOfTest question){
         final var questionDTO = new QuestionOfTestDTO();
 

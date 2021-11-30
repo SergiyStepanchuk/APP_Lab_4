@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class SessionOfTestToSessionOfTestDTOMapper {
     @Autowired private UserToUserDTOMapper userMapper;
-    @Autowired private TestToTestDTO testMapper;
+    @Autowired private TestToTestDTOMapper testMapper;
     @Autowired private QuestionOfSessionToQuestionOfSessionDTOMapper questionMapper;
 
     public SessionOfTestDTO toDTO(final SessionOfTest session){

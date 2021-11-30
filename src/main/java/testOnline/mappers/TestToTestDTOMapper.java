@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Component
-public class TestToTestDTO {
+public class TestToTestDTOMapper {
     @Autowired private QuestionOfTestToQuestionOfTestDTOMapper questionMapper;
 
     public Test toEntity(final TestDTO testDTO){
