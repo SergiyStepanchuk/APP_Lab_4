@@ -23,6 +23,8 @@ public class OptionOfQuestion {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private QuestionOfTest question;
+    @Column(name = "question_id")
+    private long questionId;
 
     private String answer;
     private boolean correct = false;

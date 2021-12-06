@@ -19,11 +19,19 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    private TestsService testsServie;
+    private TestsService testsService;
 
     @GetMapping("/get/all")
     public List<TestDTO> GetAll(){
-        return testsServie.getAllTests();
+        return testsService.getAllTests();
+    }
+    @GetMapping("/get/{id}/qetAllQuestions")
+    public List<QuestionOfTestDTO> GetAllQuestions(@PathVariable("id") long id){
+        return testsService.getAllQuestions();
+    }
+    @GetMapping("/get/{id}/qetQuestion/{questionId}/getAllOptions")
+    public List<OptionOfQuestionDTO> GetAllOptions(@PathVariable("id") long id,@PathVariable("questionId") long qid){
+        return testsService.getAllOptions();
     }
 
     @PostMapping("/add")
@@ -33,34 +41,34 @@ public class TestController {
 
     @PostMapping("get/{id}/delete")
     public void RemoveTest(@PathVariable("id") long id){
-        testsServie.RemoveTest(id);
+        testsService.RemoveTest(id);
     }
     @PostMapping("get/{id}/edit")
     public void EditTest(@PathVariable("id") long id, EditTestDTO dto){
-        testsServie.EditTest(id, dto);
+        testsService.EditTest(id, dto);
     }
     @PostMapping("get/{id}/addQuestion")
     public void AddQuestion(@PathVariable("id") long id, @Valid @RequestBody QuestionOfTestDTO dto){
-        testsServie.AddQuestion(id, dto);
+        testsService.AddQuestion(id, dto);
     }
     @PostMapping("get/{id}/getQuestion/{questionId}/edit")
-    public void EditQuestion(@PathVariable("id") long id, @PathVariable("questionId") long qid,QuestionOfTestDTO dto){
-        testsServie.EditQuestion(qid, id, dto);
+    public void EditQuestion(@PathVariable("questionId") long qid,QuestionOfTestDTO dto){
+        testsService.EditQuestion(qid,dto);
     }
     @PostMapping("get/{id}/getQuestion/{questionId}/delete")
-    public void RemoveQuestion(@PathVariable("id") long id, @PathVariable("questionId") long qid){
-        testsServie.RemoveQuestion(qid, id);
+    public void RemoveQuestion( @PathVariable("questionId") long qid){
+        testsService.RemoveQuestion(qid);
     }
      @PostMapping("get/{id}/getQuestion/{questionId}/addOption")
-    public void AddOption(@PathVariable("id") long id, @PathVariable("questionId") long qid, @Valid @RequestBody OptionOfQuestionDTO dto){
-        testsServie.AddOption(qid, id, dto);
+    public void AddOption(@PathVariable("questionId") long qid, @Valid @RequestBody OptionOfQuestionDTO dto){
+        testsService.AddOption(qid,dto);
     }
     @PostMapping("get/{id}/getQuestion/{questionId}/getOption/{optionId}/edit")
-    public void EditOption(@PathVariable("id") long id, @PathVariable("questionId") long qid, @PathVariable("optionId") long oid, OptionOfQuestionDTO dto){
-        testsServie.EditOption(oid, qid, id, dto);
+    public void EditOption(@PathVariable("optionId") long oid, OptionOfQuestionDTO dto){
+        testsService.EditOption(oid,dto);
     }
     @PostMapping("get/{id}/getQuestion/{questionId}/getOption/{optionId}/remove")
-    public void RemoveOption(@PathVariable("id") long id, @PathVariable("questionId") long qid, @PathVariable("optionId") long oid){
-        testsServie.RemoveOption(oid, qid, id);
+    public void RemoveOption(@PathVariable("optionId") long oid){
+        testsService.RemoveOption(oid);
     }
 }

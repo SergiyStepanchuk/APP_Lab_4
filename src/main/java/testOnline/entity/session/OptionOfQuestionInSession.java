@@ -20,10 +20,14 @@ public class OptionOfQuestionInSession {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private QuestionOfSession question;
+    @Column(name = "question_id")
+    private long questionId;
 
     @ManyToOne
     @JoinColumn(name = "base_option_id")
     private OptionOfQuestion baseOption;
+    @Column(name = "base_option_id")
+    private long base_optionId;
 
     private boolean Selected;
 }

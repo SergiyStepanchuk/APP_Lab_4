@@ -28,7 +28,16 @@ public class TestsServiceImpl implements TestsService {
     @Autowired private OptionOfQuestionToOptionOfQuestionDTOMapper optionToOptionDTOMapper;
 
     public List<TestDTO> getAllTests() {
-        return repo.findAll().stream().map(testToTestDTOMapper::toDTO).collect(Collectors.toList());
+        return repo.findAllWithData().stream().map(testToTestDTOMapper::toDTO).collect(Collectors.toList());
+    }
+    @Deprecated
+    public List<QuestionOfTestDTO> getAllQuestions() {
+
+        return qrepo.findAll().stream().map(questionToQuestionDTOMapper::toDTO).collect(Collectors.toList());
+    }
+    @Deprecated
+    public List<OptionOfQuestionDTO> getAllOptions() {
+        return orepo.findAll().stream().map(optionToOptionDTOMapper::toDTO).collect(Collectors.toList());
     }
     public TestDTO AddTest(TestDTO dto){
        return testToTestDTOMapper.toDTO(repo.save(testToTestDTOMapper.toEntity(dto)));
@@ -36,6 +45,7 @@ public class TestsServiceImpl implements TestsService {
     public void RemoveTest(long id){
         repo.deleteById(id);
     }
+
     public TestDTO EditTest(long id, EditTestDTO dto){
        var a = repo.findById(id).get();
        a.setDescription(dto.getDescription());
@@ -46,31 +56,32 @@ public class TestsServiceImpl implements TestsService {
     }
     public QuestionOfTestDTO AddQuestion(long id, QuestionOfTestDTO dto){
         var a = questionToQuestionDTOMapper.toEntity(dto);
-        var b = new Test();
-        b.setId(id);
-        a.setTest(b);
+        a.setTestId(id);
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
-    public QuestionOfTestDTO EditQuestion(long qid, long id, QuestionOfTestDTO dto){
-        var a = qrepo.findById(id).get();
+    public QuestionOfTestDTO EditQuestion(long qid, QuestionOfTestDTO dto){
+        var a = qrepo.findById(qid).get();
         a.setQuestion(dto.getQuestion());
         a.setMaxSelectedOptionsCount(dto.getMaxSelectedOptionsCount());
         a.setMaxOptionsCount(dto.getMaxOptionsCount());
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
-    public void RemoveQuestion(long qid, long id){
-        qrepo.deleteById(id);
+    public void RemoveQuestion(long qid){
+        qrepo.deleteById(qid);
     }
-    public OptionOfQuestionDTO AddOption(long qid, long id, OptionOfQuestionDTO dto){
-        return optionToOptionDTOMapper.toDTO(orepo.save(optionToOptionDTOMapper.toEntity(dto)));
+
+    public OptionOfQuestionDTO AddOption(long qid, OptionOfQuestionDTO dto){
+        var a = optionToOptionDTOMapper.toEntity(dto);
+        a.setQuestionId(qid);
+        return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
-    public OptionOfQuestionDTO EditOption(long oid, long qid,long id,OptionOfQuestionDTO dto){
-        var a = orepo.findById(id).get();
+    public OptionOfQuestionDTO EditOption(long oid,OptionOfQuestionDTO dto){
+        var a = orepo.findById(oid).get();
         a.setAnswer(dto.getAnswer());
         a.setCorrect(dto.isCorrect());
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
-    public void RemoveOption(long oid, long qid, long id){
-        orepo.deleteById(id);
+    public void RemoveOption(long oid){
+        orepo.deleteById(oid);
     }
 }
