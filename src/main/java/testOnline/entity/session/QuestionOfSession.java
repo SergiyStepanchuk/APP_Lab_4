@@ -24,14 +24,10 @@ public class QuestionOfSession {
     @ManyToOne
     @JoinColumn(name = "session_id")
     private SessionOfTest session;
-    @Column(name = "session_id")
-    private long sessionId;
 
     @ManyToOne
     @JoinColumn(name = "base_question_id")
     private QuestionOfTest baseQuestion;
-    @Column(name = "base_question_id")
-    private long baseQuestionId;
 
     @OneToMany(mappedBy = "baseOption")
     private Set<OptionOfQuestionInSession> options = new HashSet<>();

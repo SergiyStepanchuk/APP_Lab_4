@@ -22,10 +22,7 @@ public class QuestionOfTest {
 
     @ManyToOne
     @JoinColumn(name = "test_id")
-    @PrimaryKeyJoinColumn
     private Test test;
-    @Column(name = "test_id")
-    private long testId;
 
     private String question;
     public int maxSelectedOptionsCount = 1;

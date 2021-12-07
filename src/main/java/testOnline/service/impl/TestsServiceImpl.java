@@ -6,6 +6,7 @@ import testOnline.dto.EditTestDTO;
 import testOnline.dto.OptionOfQuestionDTO;
 import testOnline.dto.QuestionOfTestDTO;
 import testOnline.dto.TestDTO;
+import testOnline.entity.QuestionOfTest;
 import testOnline.entity.Test;
 import testOnline.mappers.OptionOfQuestionToOptionOfQuestionDTOMapper;
 import testOnline.mappers.QuestionOfTestToQuestionOfTestDTOMapper;
@@ -32,7 +33,6 @@ public class TestsServiceImpl implements TestsService {
     }
     @Deprecated
     public List<QuestionOfTestDTO> getAllQuestions() {
-
         return qrepo.findAll().stream().map(questionToQuestionDTOMapper::toDTO).collect(Collectors.toList());
     }
     @Deprecated
@@ -56,7 +56,9 @@ public class TestsServiceImpl implements TestsService {
     }
     public QuestionOfTestDTO AddQuestion(long id, QuestionOfTestDTO dto){
         var a = questionToQuestionDTOMapper.toEntity(dto);
-        a.setTestId(id);
+        var t =  new Test();
+        t.setId(id);
+        a.setTest(t);
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
     public QuestionOfTestDTO EditQuestion(long qid, QuestionOfTestDTO dto){
@@ -72,7 +74,9 @@ public class TestsServiceImpl implements TestsService {
 
     public OptionOfQuestionDTO AddOption(long qid, OptionOfQuestionDTO dto){
         var a = optionToOptionDTOMapper.toEntity(dto);
-        a.setQuestionId(qid);
+        var q = new QuestionOfTest();
+        q.setId(qid);
+        a.setQuestion(q);
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
     public OptionOfQuestionDTO EditOption(long oid,OptionOfQuestionDTO dto){
