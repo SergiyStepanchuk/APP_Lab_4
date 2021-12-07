@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NamedEntityGraph(name = "Test.questions", attributeNodes = @NamedAttributeNode("questions"))
 @EnableAutoConfiguration
 @Table(name = "Tests")
 @Data

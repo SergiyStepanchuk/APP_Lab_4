@@ -25,10 +25,14 @@ public class SessionOfTest {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @Column(name = "user_id")
+    private long userId;
 
     @ManyToOne
     @JoinColumn(name = "test_id")
     private Test test;
+    @Column(name = "test_id")
+    private long testId;
 
     private Date startDateTime;
     private Date endDateTime;
