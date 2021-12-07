@@ -20,7 +20,10 @@ public class TestToTestDTOMapper {
         test.setDescription(testDTO.getDescription());
         test.setMaxCountOfQuestions(testDTO.getMaxCountOfQuestions());
         test.setTestLengthInMinuts(testDTO.getTestLengthInMinuts());
-        test.setQuestions(new HashSet<>(testDTO.getQuestions().stream().map(questionMapper::toEntity).collect(Collectors.toList())));
+        test.setQuestions(new HashSet<>(testDTO.getQuestions().stream().map(questionMapper::toEntity).map(q -> {
+            q.setTest(test);
+            return q;
+        }).collect(Collectors.toList())));
 
         return test;
     }

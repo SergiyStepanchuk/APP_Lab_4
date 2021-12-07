@@ -30,10 +30,11 @@ public class TestsServiceImpl implements TestsService {
 
     public List<TestDTO> getAllTests() {
         return repo.findAllWithData().stream().map(testToTestDTOMapper::toDTO).collect(Collectors.toList());
+//        return null;
     }
     @Deprecated
-    public List<QuestionOfTestDTO> getAllQuestions() {
-        return qrepo.findAll().stream().map(questionToQuestionDTOMapper::toDTO).collect(Collectors.toList());
+    public List<QuestionOfTestDTO> getAllQuestions(long testId) {
+        return qrepo.findAllByTestId(testId).stream().map(questionToQuestionDTOMapper::toDTO).collect(Collectors.toList());
     }
     @Deprecated
     public List<OptionOfQuestionDTO> getAllOptions() {

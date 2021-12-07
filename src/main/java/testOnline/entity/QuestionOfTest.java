@@ -1,7 +1,12 @@
 package testOnline.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
+import org.hibernate.annotations.FetchProfiles;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import testOnline.entity.session.QuestionOfSession;
 
@@ -14,6 +19,7 @@ import java.util.Set;
 @EnableAutoConfiguration
 @Table(name = "QuestionsOfTests")
 @Data
+@EqualsAndHashCode(exclude = {"test"})
 @NoArgsConstructor
 public class QuestionOfTest {
     @Id
@@ -28,9 +34,12 @@ public class QuestionOfTest {
     public int maxSelectedOptionsCount = 1;
     public int maxOptionsCount = 4;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     private Set<OptionOfQuestion> options = new HashSet<>();
 
-    @OneToMany(mappedBy = "baseQuestion")
+    @OneToMany(mappedBy = "baseQuestion", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+
     private Set<QuestionOfSession> sessionQuestions = new HashSet<>();
 }

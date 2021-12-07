@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TestsService {
     List<TestDTO> getAllTests();
-    List<QuestionOfTestDTO> getAllQuestions();
+    List<QuestionOfTestDTO> getAllQuestions(long testId);
     List<OptionOfQuestionDTO> getAllOptions();
     TestDTO AddTest(TestDTO dto);
     void RemoveTest(long id);

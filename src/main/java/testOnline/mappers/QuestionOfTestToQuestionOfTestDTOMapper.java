@@ -17,7 +17,10 @@ public class QuestionOfTestToQuestionOfTestDTOMapper {
         final var question = new QuestionOfTest();
 
         question.setId(questionDTO.getId());
-        question.setOptions(new HashSet<>(questionDTO.getOptions().stream().map(optionMapper::toEntity).collect(Collectors.toList())));
+        question.setOptions(new HashSet<>(questionDTO.getOptions().stream().map(optionMapper::toEntity).map(o -> {
+            o.setQuestion(question);
+            return o;
+        }).collect(Collectors.toList())));
         question.setQuestion(questionDTO.getQuestion());
         question.setMaxOptionsCount(questionDTO.getMaxOptionsCount());
         question.setMaxSelectedOptionsCount(questionDTO.getMaxSelectedOptionsCount());

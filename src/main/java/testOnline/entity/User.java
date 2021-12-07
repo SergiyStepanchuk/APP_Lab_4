@@ -27,10 +27,10 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SessionOfTest> session = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<ActiveRefreshToken> users = new HashSet<>();
 
     public User(String login, String passwordHash, UserRole role) {

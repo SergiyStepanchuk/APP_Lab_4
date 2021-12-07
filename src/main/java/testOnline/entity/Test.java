@@ -2,6 +2,8 @@ package testOnline.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import testOnline.entity.session.SessionOfTest;
 
@@ -24,9 +26,11 @@ public class Test {
     private int MaxCountOfQuestions;
     private int TestLengthInMinuts;
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     private Set<QuestionOfTest> questions = new HashSet<>();
 
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     private Set<SessionOfTest> sessions = new HashSet<>();
 }

@@ -2,6 +2,8 @@ package testOnline.entity.session;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import testOnline.entity.QuestionOfTest;
 import testOnline.entity.Test;
@@ -33,6 +35,7 @@ public class SessionOfTest {
     private Date startDateTime;
     private Date endDateTime;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "session",cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     private Set<QuestionOfSession> questions = new HashSet<>();
 }

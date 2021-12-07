@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface TestsRepository extends JpaRepository<Test,Long>
 {
-    @EntityGraph(attributePaths = {"questions.options"})
-    @Query("SELECT t FROM Tests t")
-    List<Test> findAllWithData();
-
+    @EntityGraph(attributePaths = {"questions"})
+    @Query(value = "SELECT t FROM Test t")
+    public List<Test> findAllWithData();
 }
