@@ -20,12 +20,18 @@ public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String login;
+    @Column(nullable = false)
     private String passwordHash;
+    @Column(nullable = false)
     private UserRole role;
 
     @OneToMany(mappedBy = "user")
     private Set<SessionOfTest> session = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<ActiveRefreshToken> users = new HashSet<>();
 
     public User(String login, String passwordHash, UserRole role) {
         this.login = login;
