@@ -19,7 +19,9 @@ import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
+import java.util.Map;
 
 @Component
 public class JwtTokenService {
@@ -74,6 +76,7 @@ public class JwtTokenService {
         //Let's set the JWT Claims
         var builder = Jwts.builder().setId(jti)
                 .setSubject(user.getId().toString())
+                .addClaims(Map.of("user_role", user.getRole().toString()))
                 .setIssuer(issuer)
                 .setExpiration(tokenExpires)
                 .signWith(SignatureAlgorithm.HS256, key.getBytes(StandardCharsets.UTF_8));

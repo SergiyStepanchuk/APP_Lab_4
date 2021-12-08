@@ -8,16 +8,20 @@ import testOnline.dto.TestDTO;
 import java.util.List;
 
 public interface TestsService {
-    List<TestDTO> getAllTests();
-    List<QuestionOfTestDTO> getAllQuestions(long testId);
-    List<OptionOfQuestionDTO> getAllOptions();
-    TestDTO AddTest(TestDTO dto);
-    void RemoveTest(long id);
-    TestDTO EditTest(long id, EditTestDTO dto);
-    QuestionOfTestDTO AddQuestion(long id, QuestionOfTestDTO dto);
-    QuestionOfTestDTO EditQuestion(long qid, QuestionOfTestDTO dto);
-    void RemoveQuestion(long qid);
-    OptionOfQuestionDTO AddOption(long qid,  OptionOfQuestionDTO dto);
-    OptionOfQuestionDTO EditOption(long oid, OptionOfQuestionDTO dto);
-    public void RemoveOption(long oid);
+    List<TestDTO>               getAllTests();
+    List<QuestionOfTestDTO>     getAllQuestions(long testId);
+    List<OptionOfQuestionDTO>   getAllOptions(long questionId);
+
+    TestDTO                     AddTest(TestDTO dto);
+    QuestionOfTestDTO           AddQuestion(long id, QuestionOfTestDTO dto);
+    OptionOfQuestionDTO         AddOption(long qid,  OptionOfQuestionDTO dto);
+
+    void                        RemoveTest(long id);
+    void                        RemoveQuestion(long qid);
+    void                        RemoveOption(long oid);
+
+    TestDTO                     EditTest(long id, EditTestDTO dto);
+    QuestionOfTestDTO           EditQuestion(long qid, QuestionOfTestDTO dto);
+    OptionOfQuestionDTO         EditOption(long oid, OptionOfQuestionDTO dto);
+
 }

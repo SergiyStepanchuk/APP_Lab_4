@@ -1,7 +1,7 @@
 package testOnline.entity.enumeration;
 
 public enum UserRole {
-    ADMIN,
+    USER,
     TEACHER,
-    USER
+    ADMIN
 }

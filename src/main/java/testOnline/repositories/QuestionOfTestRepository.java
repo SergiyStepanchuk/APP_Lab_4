@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import testOnline.entity.QuestionOfTest;
 import java.util.List;
 
+import java.util.List;
+
 public interface QuestionOfTestRepository extends JpaRepository<QuestionOfTest,Long> {
     @EntityGraph(attributePaths = {"options"})
     public List<QuestionOfTest> findAllByTestId(long testId);

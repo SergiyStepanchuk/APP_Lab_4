@@ -30,19 +30,20 @@ public class TestsServiceImpl implements TestsService {
 
     public List<TestDTO> getAllTests() {
         return repo.findAllWithData().stream().map(testToTestDTOMapper::toDTO).collect(Collectors.toList());
-//        return null;
     }
-    @Deprecated
+
     public List<QuestionOfTestDTO> getAllQuestions(long testId) {
         return qrepo.findAllByTestId(testId).stream().map(questionToQuestionDTOMapper::toDTO).collect(Collectors.toList());
     }
-    @Deprecated
-    public List<OptionOfQuestionDTO> getAllOptions() {
-        return orepo.findAll().stream().map(optionToOptionDTOMapper::toDTO).collect(Collectors.toList());
+
+    public List<OptionOfQuestionDTO> getAllOptions(long questionId) {
+        return orepo.findAllByQuestionId(questionId).stream().map(optionToOptionDTOMapper::toDTO).collect(Collectors.toList());
     }
+
     public TestDTO AddTest(TestDTO dto){
        return testToTestDTOMapper.toDTO(repo.save(testToTestDTOMapper.toEntity(dto)));
-    };
+    }
+
     public void RemoveTest(long id){
         repo.deleteById(id);
     }
@@ -55,6 +56,7 @@ public class TestsServiceImpl implements TestsService {
        a.setTestLengthInMinuts(dto.getTestLengthInMinuts());
        return testToTestDTOMapper.toDTO(repo.save(a));
     }
+
     public QuestionOfTestDTO AddQuestion(long id, QuestionOfTestDTO dto){
         var a = questionToQuestionDTOMapper.toEntity(dto);
         var t =  new Test();
@@ -62,6 +64,7 @@ public class TestsServiceImpl implements TestsService {
         a.setTest(t);
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
+
     public QuestionOfTestDTO EditQuestion(long qid, QuestionOfTestDTO dto){
         var a = qrepo.findById(qid).get();
         a.setQuestion(dto.getQuestion());
@@ -69,6 +72,7 @@ public class TestsServiceImpl implements TestsService {
         a.setMaxOptionsCount(dto.getMaxOptionsCount());
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
+
     public void RemoveQuestion(long qid){
         qrepo.deleteById(qid);
     }
@@ -80,12 +84,14 @@ public class TestsServiceImpl implements TestsService {
         a.setQuestion(q);
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
+
     public OptionOfQuestionDTO EditOption(long oid,OptionOfQuestionDTO dto){
         var a = orepo.findById(oid).get();
         a.setAnswer(dto.getAnswer());
         a.setCorrect(dto.isCorrect());
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
+
     public void RemoveOption(long oid){
         orepo.deleteById(oid);
     }
