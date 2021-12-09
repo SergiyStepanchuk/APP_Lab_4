@@ -35,7 +35,7 @@ public class SessionOfTest {
     private Date startDateTime;
     private Date endDateTime;
 
-    @OneToMany(mappedBy = "session",cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "session",cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY,orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     private Set<QuestionOfSession> questions = new HashSet<>();
 }

@@ -27,7 +27,7 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,orphanRemoval = true)
     private Set<SessionOfTest> session = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

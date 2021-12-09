@@ -34,11 +34,11 @@ public class QuestionOfTest {
     public int maxSelectedOptionsCount = 1;
     public int maxOptionsCount = 4;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY,orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     private Set<OptionOfQuestion> options = new HashSet<>();
 
-    @OneToMany(mappedBy = "baseQuestion", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "baseQuestion", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY,orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
 
     private Set<QuestionOfSession> sessionQuestions = new HashSet<>();

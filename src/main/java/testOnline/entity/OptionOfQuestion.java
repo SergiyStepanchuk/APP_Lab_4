@@ -31,7 +31,7 @@ public class OptionOfQuestion {
     private String answer;
     private boolean correct = false;
 
-    @OneToMany(mappedBy = "baseOption", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "baseOption", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY,orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     private Set<OptionOfQuestionInSession> sessionOptions = new HashSet<>();
 }

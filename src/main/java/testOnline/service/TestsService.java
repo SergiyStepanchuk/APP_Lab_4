@@ -1,9 +1,6 @@
 package testOnline.service;
 
-import testOnline.dto.EditTestDTO;
-import testOnline.dto.OptionOfQuestionDTO;
-import testOnline.dto.QuestionOfTestDTO;
-import testOnline.dto.TestDTO;
+import testOnline.dto.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public interface TestsService {
     void                        RemoveOption(long oid);
 
     TestDTO                     EditTest(long id, EditTestDTO dto);
-    QuestionOfTestDTO           EditQuestion(long qid, QuestionOfTestDTO dto);
-    OptionOfQuestionDTO         EditOption(long oid, OptionOfQuestionDTO dto);
+    QuestionOfTestDTO           EditQuestion(long qid, EditQuestionOfTestDTO dto);
+    OptionOfQuestionDTO         EditOption(long oid, EditOptionOfQuestionDTO dto);
 
 }

@@ -3,10 +3,7 @@ package testOnline.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import testOnline.annotation.AutorizeFilter;
-import testOnline.dto.EditTestDTO;
-import testOnline.dto.OptionOfQuestionDTO;
-import testOnline.dto.QuestionOfTestDTO;
-import testOnline.dto.TestDTO;
+import testOnline.dto.*;
 import testOnline.entity.OptionOfQuestion;
 import testOnline.entity.QuestionOfTest;
 import testOnline.entity.enumeration.UserRole;
@@ -18,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tests")
-@AutorizeFilter(role = UserRole.TEACHER)
+@AutorizeFilter(role = {UserRole.TEACHER, UserRole.ADMIN})
 public class TestController {
 
     @Autowired
@@ -60,7 +57,7 @@ public class TestController {
     }
 
     @PostMapping("/editQuestion")
-    public void EditQuestion(@RequestParam("id") long id, QuestionOfTestDTO dto){
+    public void EditQuestion(@RequestParam("id") long id, EditQuestionOfTestDTO dto){
         testsService.EditQuestion(id,dto);
     }
 
@@ -75,7 +72,7 @@ public class TestController {
     }
 
     @PostMapping("/editOption")
-    public void EditOption(@RequestParam("optionId") long oid, OptionOfQuestionDTO dto){
+    public void EditOption(@RequestParam("optionId") long oid, EditOptionOfQuestionDTO dto){
         testsService.EditOption(oid, dto);
     }
 

@@ -2,10 +2,7 @@ package testOnline.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import testOnline.dto.EditTestDTO;
-import testOnline.dto.OptionOfQuestionDTO;
-import testOnline.dto.QuestionOfTestDTO;
-import testOnline.dto.TestDTO;
+import testOnline.dto.*;
 import testOnline.entity.QuestionOfTest;
 import testOnline.entity.Test;
 import testOnline.mappers.OptionOfQuestionToOptionOfQuestionDTOMapper;
@@ -50,10 +47,14 @@ public class TestsServiceImpl implements TestsService {
 
     public TestDTO EditTest(long id, EditTestDTO dto){
        var a = repo.findById(id).get();
-       a.setDescription(dto.getDescription());
-       a.setName(dto.getName());
-       a.setMaxCountOfQuestions(dto.getMaxCountOfQuestions());
-       a.setTestLengthInMinuts(dto.getTestLengthInMinuts());
+       if (dto.getDescription() != null)
+           a.setDescription(dto.getDescription());
+       if (dto.getName() != null)
+           a.setName(dto.getName());
+//       if (!dto.getMaxCountOfQuestions().isEmpty())
+//           a.setMaxCountOfQuestions(dto.getMaxCountOfQuestions().get());
+//       if (!dto.getTestLengthInMinuts().isEmpty())
+//           a.setTestLengthInMinuts(dto.getTestLengthInMinuts().get());
        return testToTestDTOMapper.toDTO(repo.save(a));
     }
 
@@ -65,11 +66,14 @@ public class TestsServiceImpl implements TestsService {
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
 
-    public QuestionOfTestDTO EditQuestion(long qid, QuestionOfTestDTO dto){
+    public QuestionOfTestDTO EditQuestion(long qid, EditQuestionOfTestDTO dto){
         var a = qrepo.findById(qid).get();
-        a.setQuestion(dto.getQuestion());
-        a.setMaxSelectedOptionsCount(dto.getMaxSelectedOptionsCount());
-        a.setMaxOptionsCount(dto.getMaxOptionsCount());
+        if(!dto.getQuestion().isEmpty())
+            a.setQuestion(dto.getQuestion().get());
+        if(!dto.getMaxSelectedOptionsCount().isEmpty())
+            a.setMaxSelectedOptionsCount(dto.getMaxSelectedOptionsCount().get());
+        if(!dto.getMaxOptionsCount().isEmpty()
+        )a.setMaxOptionsCount(dto.getMaxOptionsCount().get());
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
 
@@ -85,10 +89,12 @@ public class TestsServiceImpl implements TestsService {
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
 
-    public OptionOfQuestionDTO EditOption(long oid,OptionOfQuestionDTO dto){
+    public OptionOfQuestionDTO EditOption(long oid,EditOptionOfQuestionDTO dto){
         var a = orepo.findById(oid).get();
-        a.setAnswer(dto.getAnswer());
-        a.setCorrect(dto.isCorrect());
+        if(!dto.getAnswer().isEmpty())
+            a.setAnswer(dto.getAnswer().get());
+        if(!dto.getCorrect().isEmpty())
+            a.setCorrect(dto.getCorrect().get());
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }
 

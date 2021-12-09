@@ -31,7 +31,7 @@ public class QuestionOfSession {
     @JoinColumn(name = "base_question_id")
     private QuestionOfTest baseQuestion;
 
-    @OneToMany(mappedBy = "baseOption",cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "baseOption",cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY,orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     private Set<OptionOfQuestionInSession> options = new HashSet<>();
 }
