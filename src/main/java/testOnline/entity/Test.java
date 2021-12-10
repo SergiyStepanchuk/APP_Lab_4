@@ -26,7 +26,7 @@ public class Test {
     private int MaxCountOfQuestions;
     private int TestLengthInMinuts;
 
-    @OneToMany(mappedBy = "test", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY,orphanRemoval = true)
+    @OneToMany(mappedBy = "test", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     private Set<QuestionOfTest> questions = new HashSet<>();
 

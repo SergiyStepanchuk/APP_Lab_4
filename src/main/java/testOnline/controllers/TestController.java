@@ -3,6 +3,7 @@ package testOnline.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import testOnline.annotation.AutorizeFilter;
+import testOnline.annotation.AutorizeUser;
 import testOnline.dto.*;
 import testOnline.entity.OptionOfQuestion;
 import testOnline.entity.QuestionOfTest;
@@ -21,9 +22,15 @@ public class TestController {
     @Autowired
     private TestsService testsService;
 
+    @AutorizeFilter
     @GetMapping("/get/all")
-    public List<TestDTO> GetAll(){
-        return testsService.getAllTests();
+    public List<TestDTOMinimized> GetAll(){
+        return testsService.getAllTestsMinimized();
+    }
+
+    @GetMapping("/get")
+    public TestDTO GetOneFull(@RequestParam("id") long id){
+        return testsService.getFullTestById(id);
     }
 
     @GetMapping("/getQuestions")
@@ -36,18 +43,18 @@ public class TestController {
         return testsService.getAllOptions(questionId);
     }
 
-    @PostMapping("/addTest")
+    @PostMapping("/add")
     public TestDTO AddTest(@Valid @RequestBody TestDTO dto){
         return testsService.AddTest(dto);
     }
 
-    @PostMapping("/removeTest")
+    @PostMapping("/remove")
     public void RemoveTest(@RequestParam("id") long id){
         testsService.RemoveTest(id);
     }
 
-    @PostMapping("/editTest")
-    public void EditTest(@RequestParam("id") long id, @RequestBody EditTestDTO dto){
+    @PostMapping("/edit")
+    public void EditTest(@RequestParam("id") long id, @Valid @RequestBody EditTestDTO dto){
         testsService.EditTest(id, dto);
     }
 

@@ -4,25 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.*;
-
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EditTestDTO {
-    @NotEmpty()
+    @Size(min = 1, max = 100)
     private String name;
 
-    @NotEmpty()
+    @Size(min = 1, max = 500)
     private String description;
 
-    @Min(1)
-    @Max(100)
-    private int maxCountOfQuestions;
+    private Optional<@Min(1) @Max(100) Integer> maxCountOfQuestions;
 
-    @Min(5)
-    @Max(120)
-    private int testLengthInMinuts;
+    private Optional<@Min(5) @Max(120) Integer> testLengthInMinuts;
 }
 
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import testOnline.annotation.AutorizeFilter;
+import testOnline.annotation.AutorizeUser;
 import testOnline.entity.enumeration.AutorizeFilterTypes;
 import testOnline.entity.enumeration.UserRole;
 import testOnline.service.impl.JwtTokenService;

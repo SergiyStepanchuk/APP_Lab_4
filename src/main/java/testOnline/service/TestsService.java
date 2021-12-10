@@ -5,6 +5,10 @@ import testOnline.dto.*;
 import java.util.List;
 
 public interface TestsService {
+    List<TestDTOMinimized>      getAllTestsMinimized();
+
+    TestDTO                     getFullTestById(long id);
+
     List<TestDTO>               getAllTests();
     List<QuestionOfTestDTO>     getAllQuestions(long testId);
     List<OptionOfQuestionDTO>   getAllOptions(long questionId);

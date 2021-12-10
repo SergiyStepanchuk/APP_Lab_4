@@ -1,9 +1,11 @@
 package testOnline.entity.session;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import testOnline.entity.OptionOfQuestion;
+import testOnline.entity.QuestionOfTest;
 
 import javax.persistence.*;
 
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @Table(name="OptionsOfQuestionsInSessions")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"question", "baseOption"})
 public class OptionOfQuestionInSession {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -25,5 +28,11 @@ public class OptionOfQuestionInSession {
     @JoinColumn(name = "base_option_id")
     private OptionOfQuestion baseOption;
 
-    private boolean Selected;
+    private boolean selected = false;
+
+    public OptionOfQuestionInSession(QuestionOfSession question, OptionOfQuestion baseOption)
+    {
+        this.question = question;
+        this.baseOption = baseOption;
+    }
 }

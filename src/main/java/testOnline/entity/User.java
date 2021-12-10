@@ -38,4 +38,8 @@ public class User {
         this.passwordHash = passwordHash;
         this.role = role;
     }
+
+    public User(long id) {
+        this.id = id;
+    }
 }

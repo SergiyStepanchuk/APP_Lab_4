@@ -8,6 +8,7 @@ import testOnline.entity.Test;
 import testOnline.mappers.OptionOfQuestionToOptionOfQuestionDTOMapper;
 import testOnline.mappers.QuestionOfTestToQuestionOfTestDTOMapper;
 import testOnline.mappers.TestToTestDTOMapper;
+import testOnline.mappers.TestToTestDTOMinimizedMapper;
 import testOnline.repositories.OptionOfQuestionRepository;
 import testOnline.repositories.QuestionOfTestRepository;
 import testOnline.repositories.TestsRepository;
@@ -21,9 +22,21 @@ public class TestsServiceImpl implements TestsService {
     @Autowired private TestsRepository repo;
     @Autowired private QuestionOfTestRepository qrepo;
     @Autowired private OptionOfQuestionRepository orepo;
+
     @Autowired private TestToTestDTOMapper testToTestDTOMapper;
+    @Autowired private TestToTestDTOMinimizedMapper testToTestDTOMinimizedMapper;
     @Autowired private QuestionOfTestToQuestionOfTestDTOMapper questionToQuestionDTOMapper;
     @Autowired private OptionOfQuestionToOptionOfQuestionDTOMapper optionToOptionDTOMapper;
+
+    public List<TestDTOMinimized> getAllTestsMinimized()
+    {
+        return repo.findAll().stream().map(testToTestDTOMinimizedMapper::toDTO).collect(Collectors.toList());
+    }
+
+    public TestDTO getFullTestById(long id)
+    {
+        return testToTestDTOMapper.toDTO(repo.findById(id).get());
+    }
 
     public List<TestDTO> getAllTests() {
         return repo.findAllWithData().stream().map(testToTestDTOMapper::toDTO).collect(Collectors.toList());
@@ -51,10 +64,10 @@ public class TestsServiceImpl implements TestsService {
            a.setDescription(dto.getDescription());
        if (dto.getName() != null)
            a.setName(dto.getName());
-//       if (!dto.getMaxCountOfQuestions().isEmpty())
-//           a.setMaxCountOfQuestions(dto.getMaxCountOfQuestions().get());
-//       if (!dto.getTestLengthInMinuts().isEmpty())
-//           a.setTestLengthInMinuts(dto.getTestLengthInMinuts().get());
+       if (dto.getMaxCountOfQuestions() != null && !dto.getMaxCountOfQuestions().isEmpty())
+            a.setMaxCountOfQuestions(dto.getMaxCountOfQuestions().get());
+        if (dto.getTestLengthInMinuts() != null && !dto.getTestLengthInMinuts().isEmpty())
+            a.setTestLengthInMinuts(dto.getTestLengthInMinuts().get());
        return testToTestDTOMapper.toDTO(repo.save(a));
     }
 
@@ -68,12 +81,12 @@ public class TestsServiceImpl implements TestsService {
 
     public QuestionOfTestDTO EditQuestion(long qid, EditQuestionOfTestDTO dto){
         var a = qrepo.findById(qid).get();
-        if(!dto.getQuestion().isEmpty())
-            a.setQuestion(dto.getQuestion().get());
-        if(!dto.getMaxSelectedOptionsCount().isEmpty())
+        if(dto.getQuestion() != null)
+            a.setQuestion(dto.getQuestion());
+        if(dto.getMaxSelectedOptionsCount() != null && !dto.getMaxSelectedOptionsCount().isEmpty())
             a.setMaxSelectedOptionsCount(dto.getMaxSelectedOptionsCount().get());
-        if(!dto.getMaxOptionsCount().isEmpty()
-        )a.setMaxOptionsCount(dto.getMaxOptionsCount().get());
+        if(dto.getMaxOptionsCount() != null && !dto.getMaxOptionsCount().isEmpty())
+            a.setMaxOptionsCount(dto.getMaxOptionsCount().get());
         return questionToQuestionDTOMapper.toDTO(qrepo.save(a));
     }
 
@@ -91,9 +104,9 @@ public class TestsServiceImpl implements TestsService {
 
     public OptionOfQuestionDTO EditOption(long oid,EditOptionOfQuestionDTO dto){
         var a = orepo.findById(oid).get();
-        if(!dto.getAnswer().isEmpty())
-            a.setAnswer(dto.getAnswer().get());
-        if(!dto.getCorrect().isEmpty())
+        if(dto.getAnswer() != null)
+            a.setAnswer(dto.getAnswer());
+        if(dto.getCorrect() != null && !dto.getCorrect().isEmpty())
             a.setCorrect(dto.getCorrect().get());
         return optionToOptionDTOMapper.toDTO(orepo.save(a));
     }

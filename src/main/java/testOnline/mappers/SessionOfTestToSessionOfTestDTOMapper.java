@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class SessionOfTestToSessionOfTestDTOMapper {
-    @Autowired private UserToUserDTOMapper userMapper;
-    @Autowired private TestToTestDTOMapper testMapper;
+    @Autowired private TestToTestDTOMinimizedMapper testMapper;
     @Autowired private QuestionOfSessionToQuestionOfSessionDTOMapper questionMapper;
 
     public SessionOfTestDTO toDTO(final SessionOfTest session){
@@ -18,7 +17,6 @@ public class SessionOfTestToSessionOfTestDTOMapper {
         final var sessionDTO = new SessionOfTestDTO();
 
         sessionDTO.setId(session.getId());
-        sessionDTO.setUser(userMapper.toDTO(session.getUser()));
         sessionDTO.setTest(testMapper.toDTO(session.getTest()));
         sessionDTO.setStartDateTime(session.getStartDateTime());
         sessionDTO.setEndDateTime(session.getEndDateTime());
