@@ -29,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    public LoggedDTO auth(@Valid @RequestBody RefreshTokenDTO dto) throws Exception {
+    public LoggedDTO refreshToken(@Valid @RequestBody RefreshTokenDTO dto) throws Exception {
         return jwtTokenService.refreshToken(jwtTokenService.decodeRefreshToken(dto.getToken()));
     }
 
